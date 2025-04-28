@@ -8,21 +8,30 @@ function updateDisplay() {
 
 // 서서히 증가 설정
 const targetMultiplierPerSecond = 2;
-const updateRate = 30; // 초당 30번 업데이트 (frame rate)
-const interval = 1000 / updateRate; // 밀리초 간격
+const updateRate = 30; // 초당 30번 업데이트
+const interval = 1000 / updateRate;
 const growthPerTick = Math.pow(targetMultiplierPerSecond, 1 / updateRate);
 
-// 매 tick마다 살짝씩 복제
+// 저장 함수
+function saveGame() {
+    localStorage.setItem('replicanti', replicanti);
+}
+
+// 불러오기 함수
+function loadGame() {
+    const savedReplicanti = localStorage.getItem('replicanti');
+    if (savedReplicanti !== null) {
+        replicanti = parseFloat(savedReplicanti);
+    }
+    updateDisplay();
+}
+
+// 매 tick마다 복제 + 표시 + 저장
 setInterval(() => {
     replicanti *= growthPerTick;
     updateDisplay();
+    saveGame();
 }, interval);
 
 // 리셋 버튼
 resetButton.addEventListener('click', function() {
-    replicanti = 1;
-    updateDisplay();
-});
-
-// 초기 화면 세팅
-updateDisplay();
