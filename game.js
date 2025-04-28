@@ -105,8 +105,13 @@ public class ReplicantiGameGUI {
     
     public void updateLabels() {
         // Update GUI labels to show the current game state
-        replicantiLabel.setText("Replicanti: " + String.format("%.3f", replicanti));
-        timeLabel.setText("Time Spent: " + String.format("%.1f", timeSpent) + " seconds");
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                replicantiLabel.setText("Replicanti: " + String.format("%.3f", replicanti));
+                timeLabel.setText("Time Spent: " + String.format("%.1f", timeSpent) + " seconds");
+            }
+        });
     }
 
     public static void main(String[] args) {
