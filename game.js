@@ -1,25 +1,22 @@
 let replicanti = 1;
-
 const replicantiDisplay = document.getElementById('replicanti');
-const manualButton = document.getElementById('manualMultiply');
 const resetButton = document.getElementById('resetGame');
 
-// 함수: Replicanti를 2배로 늘림
-function multiplyReplicanti() {
-    replicanti *= 2;
-    updateDisplay();
-}
-
-// 함수: 화면에 Replicanti 숫자 업데이트
 function updateDisplay() {
     replicantiDisplay.textContent = `Replicanti: ${Math.floor(replicanti)}`;
 }
 
-// 1초마다 자동으로 2배 증가
-setInterval(multiplyReplicanti, 1000);
+// 서서히 증가 설정
+const targetMultiplierPerSecond = 2;
+const updateRate = 30; // 초당 30번 업데이트 (frame rate)
+const interval = 1000 / updateRate; // 밀리초 간격
+const growthPerTick = Math.pow(targetMultiplierPerSecond, 1 / updateRate);
 
-// 수동으로 버튼 눌러서도 증가 가능
-manualButton.addEventListener('click', multiplyReplicanti);
+// 매 tick마다 살짝씩 복제
+setInterval(() => {
+    replicanti *= growthPerTick;
+    updateDisplay();
+}, interval);
 
 // 리셋 버튼
 resetButton.addEventListener('click', function() {
@@ -27,5 +24,5 @@ resetButton.addEventListener('click', function() {
     updateDisplay();
 });
 
-// 처음 화면 세팅
+// 초기 화면 세팅
 updateDisplay();
