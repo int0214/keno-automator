@@ -17,7 +17,7 @@ function roll() {
     playerChoice < 1 ||
     playerChoice > diceSides ||
     isNaN(wild) ||
-    wild < 1
+    wild < 0
   ) {
     document.getElementById("results").innerHTML = "You must fill all the cells with valid values!";
     return;
