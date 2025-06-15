@@ -66,9 +66,6 @@ function roll() {
   }
   if (games <= 10000) results = "Total Payout: " + totalPayout + "<br>" + results;
   else results = "Total Payout: " + totalPayout + "<br>Final Game result:<br>" + results + "<br>Games Played: " + gamesPlayed;
-  if (wild < level + 3) {
-    results = "You do not have enough wild cards to automate keno";
-  }
   document.getElementById("results").innerHTML = results;
 }
 
