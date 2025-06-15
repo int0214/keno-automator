@@ -7,9 +7,13 @@ function roll() {
 
   let playerDice = wild + 4;
   let dealerDice = level + 14;
+  let leftoverWild = 0;
 
   // If wildcard is bigger than playerDice, use only playerDice
-  if (wild > level+4) wild = level+4;
+  if (wild > level+4) {
+    leftoverWild = wild-(level+4)
+    wild = level+4
+  }
 
   // Force people to fill all the cells: if wild < 1 or playerChoice is not valid, abort
   if (
@@ -34,6 +38,7 @@ function roll() {
     let playerArray = generatePArray(playerDice, diceSides, playerChoice);
     let dealerArray = generateDArray(dealerDice, diceSides);
     playerArray = playerArray.sort((a, b) => b - a);
+    payoutPerHit = (wild + leftoverWild + 1) * level
 
     // Remove the chosen number from the wild cards displayed
     let displayWildCards = playerArray.filter(n => n !== playerChoice);
