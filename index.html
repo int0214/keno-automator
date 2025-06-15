@@ -10,7 +10,7 @@
     <font color="#ffffff">How many games?</font>
     <input id="games">
     <br>
-    <font color="#ffffff">How many wild cards?</font>
+    <font color="#ffffff">How many wild cards? (<span id="chosenNumberDisplay">-</span>)</font>
     <input id="wild">
     <br>
     <font color="#ffffff">Current game level</font>
@@ -20,7 +20,7 @@
     <input id="sides">
     <br>
     <font color="#ffffff">Choose your number</font>
-    <input id="playerChoice">
+    <input id="playerChoice" oninput="document.getElementById('chosenNumberDisplay').textContent=this.value || '-'">
     <br>
     <font color="#ffffff">
       Random Mult: <input type="checkbox" id="rmult">
