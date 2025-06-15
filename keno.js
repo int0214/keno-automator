@@ -5,8 +5,7 @@ function roll() {
   let level = Number(document.getElementById("level").value);
   let diceSides = Number(document.getElementById("sides").value);
   let playerChoice = Number(document.getElementById("playerChoice").value);
-  
-  
+
   let payoutPerHit = wild * level;
   let playerDice = level + 4;
   let dealerDice = level + 14;
@@ -59,14 +58,47 @@ function roll() {
     totalPayout += payout;
     dealerArray[0] = dealerArray[0].sort((a, b) => b - a);
     gamesPlayed++;
-    if (games <= 10000 || game == games || hits >= playerDice)
-        results += "Your Number: " + playerNumberStr + "; Wild Cards: " + playerArray.join(", ") + "; Dealer Rolls: " + dealerArray[0].join(", ") + (dealerArray[1].length > 0 ? ", Dealer Rerolls: " + dealerArray[1].join(", ") : "") + ". Payout: " + payout + "<br>";
+
+    // Correct placement of playerNumberStr inside the loop
+    let playerNumberStr =
+      typeof playerChoice === "number" &&
+      !isNaN(playerChoice) &&
+      playerChoice > 0 &&
+      playerChoice <= diceSides
+        ? playerChoice
+        : "-";
+    results +=
+      "Your Number: " +
+      playerNumberStr +
+      "; Wild Cards: " +
+      playerArray.join(", ") +
+      "; Dealer Rolls: " +
+      dealerArray[0].join(", ") +
+      (dealerArray[1].length > 0
+        ? ", Dealer Rerolls: " + dealerArray[1].join(", ")
+        : "") +
+      ". Payout: " +
+      payout +
+      "<br>";
+
     if (hits >= playerDice) {
       break;
     }
   }
-  if (games <= 10000) results = "Total Payout: " + totalPayout + "<br>" + results;
-  else results = "Total Payout: " + totalPayout + "<br>Final Game result:<br>" + results + "<br>Games Played: " + gamesPlayed;
+
+  if (games <= 10000)
+    results = "Total Payout: " + totalPayout + "<br>" + results;
+  else
+    results =
+      "Total Payout: " +
+      totalPayout +
+      "<br>Final Game result:<br>" +
+      results +
+      "<br>Games Played: " +
+      gamesPlayed;
+  if (wild < level + 4) {
+    results = "You do not have enough wild cards to automate keno";
+  }
   document.getElementById("results").innerHTML = results;
 }
 
