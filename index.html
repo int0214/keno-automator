@@ -1,103 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Replicanti Game</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        #gameInfo {
-            margin-bottom: 20px;
-        }
-        #nerfsInfo {
-            margin-top: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        #nerfsLabel {
-            margin-top: 20px;
-            font-size: 16px;
-        }
-        #timeLabel, #replicantiLabel {
-            font-size: 18px;
-        }
-    </style>
-</head>
-<body>
-
-<h1>Replicanti Game</h1>
-
-<div id="gameInfo">
-    <div id="replicantiLabel">Replicanti: 1.000</div>
-    <div id="timeLabel">Time Spent: 0 seconds</div>
-</div>
-
-<button onclick="toggleNerfs()">Toggle Nerfs</button>
-
-<div id="nerfsInfo">
-    <div id="nerfsLabel">Nerfs: Inactive</div>
-</div>
-
-<script>
-    let replicanti = 1;
-    let timeSpent = 0;
-    let nerfsActive = false;
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Keno Automator</title>
+    <script src="/keno.js" defer></script>
+  </head>
+  <body bgcolor="#000000">
+    <font color="#ffffff">How many games?</font>
+    <input id="games">
+    <br>
+    <font color="#ffffff">How many wild cards?</font>
+    <input id="wild">
+    <br>
+    <font color="#ffffff">Current game level</font>
+    <input id="level">
+    <br>
+    <font color="#ffffff">Max dice number</font>
+    <input id="sides">
+    <br>
+    <font color="#ffffff">
+    Random Mult: <input type="checkbox" id="rmult">
+    Fixed Mult: <input type="checkbox" id="fmult">
+    </font>
+    <br>
+    <button onclick="roll()">
+      Play
+    </button>
     
-    function toggleNerfs() {
-        nerfsActive = !nerfsActive;
-        updateNerfsStatus();
-    }
-
-    function updateNerfsStatus() {
-        const nerfsLabel = document.getElementById("nerfsLabel");
-        if (nerfsActive) {
-            nerfsLabel.innerHTML = `
-                Nerfs Active:<br>
-                1. Game speed reduced by 128x.<br>
-                2. Production divided by (Replicanti ^ 0.5).<br>
-                3. Production divided by (Time * 10) ^ 2.<br>
-                4. Replicanti copies itself as replicanti^0.5.<br>
-                5. Upgrade costs squared.<br>
-                6. Replicanti divided by 2 every second.<br>
-            `;
-        } else {
-            nerfsLabel.innerHTML = "Nerfs: Inactive";
-        }
-    }
-
-    function updateGameStats() {
-        const replicantiLabel = document.getElementById("replicantiLabel");
-        const timeLabel = document.getElementById("timeLabel");
-        
-        replicantiLabel.innerHTML = "Replicanti: " + replicanti.toFixed(3);
-        timeLabel.innerHTML = "Time Spent: " + timeSpent.toFixed(0) + " seconds";
-    }
-
-    function gameLoop() {
-        timeSpent += 1;  // 게임 시간이 1초씩 증가
-        
-        if (nerfsActive) {
-            // 너프 적용된 replicanti 계산
-            const timeFactor = Math.pow(timeSpent * 10, 2);
-            const productionFactor = Math.pow(replicanti, 0.5);
-            replicanti += (1 / (128 * productionFactor * timeFactor));  // 너프된 속도로 replicanti 증가
-        } else {
-            replicanti += 0.01;  // 기본 속도대로 replicanti 증가
-        }
-
-        updateGameStats();
-        setTimeout(gameLoop, 1000);  // 1초마다 게임 루프 반복
-    }
-
-    // 게임 시작
-    gameLoop();
-</script>
-
-</body>
+    <font color="#ffffff"><div id="results"></div></font>
+  </body>
 </html>
