@@ -96,9 +96,6 @@ function roll() {
       results +
       "<br>Games Played: " +
       gamesPlayed;
-  if (wild < level + 4) {
-    results = "You do not have enough wild cards to automate keno";
-  }
   document.getElementById("results").innerHTML = results;
 }
 
