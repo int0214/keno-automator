@@ -6,6 +6,7 @@ function roll() {
   let diceSides = Number(document.getElementById("sides").value);
   let playerChoice = Number(document.getElementById("playerChoice").value);
   
+  
   let payoutPerHit = wild * level;
   let playerDice = level + 4;
   let dealerDice = level + 14;
