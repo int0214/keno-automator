@@ -20,6 +20,14 @@ function roll() {
     let dealerArray = generateDArray(dealerDice, diceSides);
     playerArray = playerArray.sort((a, b) => b - a);
 
+    // Remove the chosen number from the wild cards displayed
+    let displayWildCards = playerArray.filter(n => n !== playerChoice);
+
+    // If we have more than (wild) wild cards, trim the array to match 'wild' (excluding chosen number)
+    if (displayWildCards.length > wild) {
+      displayWildCards = displayWildCards.slice(0, wild);
+    }
+
     if (document.getElementById("rmult").checked) {
       let playerhits = [];
       for (let i of dealerArray[0].concat(dealerArray[1])) {
@@ -59,7 +67,6 @@ function roll() {
     dealerArray[0] = dealerArray[0].sort((a, b) => b - a);
     gamesPlayed++;
 
-    // Correct placement of playerNumberStr inside the loop
     let playerNumberStr =
       typeof playerChoice === "number" &&
       !isNaN(playerChoice) &&
@@ -71,7 +78,7 @@ function roll() {
       "Your Number: " +
       playerNumberStr +
       "; Wild Cards: " +
-      playerArray.join(", ") +
+      displayWildCards.join(", ") +
       "; Dealer Rolls: " +
       dealerArray[0].join(", ") +
       (dealerArray[1].length > 0
@@ -96,6 +103,9 @@ function roll() {
       results +
       "<br>Games Played: " +
       gamesPlayed;
+  if (wild < level + 4) {
+    results = "You do not have enough wild cards to automate keno";
+  }
   document.getElementById("results").innerHTML = results;
 }
 
