@@ -6,14 +6,14 @@ function roll() {
   let playerChoice = Number(document.getElementById("playerChoice").value);
 
   let payoutPerHit = (wild+1) * level;
-  let playerDice = (wild+1) + 4;
+  let playerDice = wild + 4;
   let dealerDice = level + 14;
   let totalPayout = 0;
   let gamesPlayed = 0;
   let finalResult = "";
 
   for (let game = 1; game <= games; game++) {
-    let payout = -(playerDice * level);
+    let payout = -payoutPerHit;
     let hits = 0;
     let playerArray = generatePArray(playerDice, diceSides, playerChoice);
     let dealerArray = generateDArray(dealerDice, diceSides);
