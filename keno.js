@@ -60,7 +60,6 @@ function roll() {
     dealerArray[0] = dealerArray[0].sort((a, b) => b - a);
     gamesPlayed++;
     if (games <= 10000 || game == games || hits >= playerDice)
-      let playerNumberStr = (typeof playerChoice === "number" && !isNaN(playerChoice) && playerChoice > 0 && playerChoice <= diceSides) ? playerChoice : "-";
         results += "Your Number: " + playerNumberStr + "; Wild Cards: " + playerArray.join(", ") + "; Dealer Rolls: " + dealerArray[0].join(", ") + (dealerArray[1].length > 0 ? ", Dealer Rerolls: " + dealerArray[1].join(", ") : "") + ". Payout: " + payout + "<br>";
     if (hits >= playerDice) {
       break;
