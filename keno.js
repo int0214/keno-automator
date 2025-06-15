@@ -9,7 +9,7 @@ function roll() {
   let dealerDice = level + 14;
 
   // If wildcard is bigger than playerDice, use only playerDice
-  if (wild > playerDice) wild = playerDice;
+  if (wild > level+4) wild = level+4;
 
   // Force people to fill all the cells: if wild < 1 or playerChoice is not valid, abort
   if (
