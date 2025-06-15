@@ -9,13 +9,11 @@ function roll() {
   let dealerDice = level + 14;
   let leftoverWild = 0;
 
-  // If wildcard is bigger than playerDice, use only playerDice
   if (wild > level+4) {
     leftoverWild = wild-(level+4)
     wild = level+4
   }
 
-  // Force people to fill all the cells: if wild < 1 or playerChoice is not valid, abort
   if (
     isNaN(playerChoice) ||
     playerChoice < 1 ||
@@ -40,10 +38,8 @@ function roll() {
     playerArray = playerArray.sort((a, b) => b - a);
     payoutPerHit = (wild + leftoverWild + 1) * level
 
-    // Remove the chosen number from the wild cards displayed
     let displayWildCards = playerArray.filter(n => n !== playerChoice);
 
-    // Trim wild cards array to match the entered wild card amount or playerDice, whichever is smaller
     if (displayWildCards.length > wild) {
       displayWildCards = displayWildCards.slice(0, wild);
     }
@@ -78,7 +74,6 @@ function roll() {
       }
     }
 
-    // Count hits
     for (let i of dealerArray[0]) {
       if (playerArray.includes(i)) {
         hits++;
@@ -101,7 +96,6 @@ function roll() {
       playerChoice <= diceSides
         ? playerChoice
         : "-";
-    // Only keep the last game's result
     finalResult =
       "Your Number: " +
       playerNumberStr +
@@ -134,7 +128,6 @@ function roll() {
 
 function generatePArray(diceAmt, sides, playerChoice) {
   let arr = [];
-  // Always include the player's chosen number if valid
   if (
     typeof playerChoice === "number" &&
     !isNaN(playerChoice) &&
