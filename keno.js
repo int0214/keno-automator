@@ -5,9 +5,25 @@ function roll() {
   let diceSides = Number(document.getElementById("sides").value);
   let playerChoice = Number(document.getElementById("playerChoice").value);
 
-  let payoutPerHit = (wild+1) * level;
   let playerDice = wild + 4;
   let dealerDice = level + 14;
+
+  // If wildcard is bigger than playerDice, use only playerDice
+  if (wild > playerDice) wild = playerDice;
+
+  // Force people to fill all the cells: if wild < 1 or playerChoice is not valid, abort
+  if (
+    isNaN(playerChoice) ||
+    playerChoice < 1 ||
+    playerChoice > diceSides ||
+    isNaN(wild) ||
+    wild < 1
+  ) {
+    document.getElementById("results").innerHTML = "You must fill all the cells with valid values!";
+    return;
+  }
+
+  let payoutPerHit = (wild + 1) * level;
   let totalPayout = 0;
   let gamesPlayed = 0;
   let finalResult = "";
@@ -22,7 +38,7 @@ function roll() {
     // Remove the chosen number from the wild cards displayed
     let displayWildCards = playerArray.filter(n => n !== playerChoice);
 
-    // Trim wild cards array to match the entered wild card amount
+    // Trim wild cards array to match the entered wild card amount or playerDice, whichever is smaller
     if (displayWildCards.length > wild) {
       displayWildCards = displayWildCards.slice(0, wild);
     }
@@ -102,7 +118,7 @@ function roll() {
     }
   }
 
-  let results = 
+  let results =
     "Total Payout: " + totalPayout + "<br>" +
     "Final Game result:<br>" +
     finalResult +
