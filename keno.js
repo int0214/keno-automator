@@ -9,8 +9,8 @@ function roll() {
   let playerDice = level + 4;
   let dealerDice = level + 14;
   let totalPayout = 0;
-  let results = "";
   let gamesPlayed = 0;
+  let finalResult = "";
 
   for (let game = 1; game <= games; game++) {
     let payout = -(playerDice * level);
@@ -80,7 +80,8 @@ function roll() {
       playerChoice <= diceSides
         ? playerChoice
         : "-";
-    results +=
+    // Only keep the last game's result
+    finalResult =
       "Your Number: " +
       playerNumberStr +
       "; Wild Cards: " +
@@ -101,16 +102,11 @@ function roll() {
     }
   }
 
-  if (games <= 10000)
-    results = "Total Payout: " + totalPayout + "<br>" + results;
-  else
-    results =
-      "Total Payout: " +
-      totalPayout +
-      "<br>Final Game result:<br>" +
-      results +
-      "<br>Games Played: " +
-      gamesPlayed;
+  let results = 
+    "Total Payout: " + totalPayout + "<br>" +
+    "Final Game result:<br>" +
+    finalResult +
+    "<br>Games Played: " + gamesPlayed;
 
   document.getElementById("results").innerHTML = results;
 }
