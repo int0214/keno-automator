@@ -1,5 +1,4 @@
 function roll() {
-  let a = "<font color='#ffffff'>";
   let games = Number(document.getElementById("games").value);
   let wild = Number(document.getElementById("wild").value);
   let level = Number(document.getElementById("level").value);
@@ -23,7 +22,7 @@ function roll() {
     // Remove the chosen number from the wild cards displayed
     let displayWildCards = playerArray.filter(n => n !== playerChoice);
 
-    // If we have more than (wild) wild cards, trim the array to match 'wild' (excluding chosen number)
+    // Trim wild cards array to match the entered wild card amount
     if (displayWildCards.length > wild) {
       displayWildCards = displayWildCards.slice(0, wild);
     }
@@ -42,16 +41,23 @@ function roll() {
       }
     } else {
       for (let i in playerArray) {
-        if (dealerArray[0].includes(playerArray[i]) || dealerArray[1].includes(playerArray[i])) {
+        if (
+          dealerArray[0].includes(playerArray[i]) ||
+          dealerArray[1].includes(playerArray[i])
+        ) {
           payout += payoutPerHit;
           if (i > 0) {
-            if (document.getElementById("fmult").checked && playerArray[i] == playerArray[i - 1])
+            if (
+              document.getElementById("fmult").checked &&
+              playerArray[i] == playerArray[i - 1]
+            )
               payout += payoutPerHit / 2;
           }
         }
       }
     }
 
+    // Count hits
     for (let i of dealerArray[0]) {
       if (playerArray.includes(i)) {
         hits++;
@@ -86,6 +92,8 @@ function roll() {
         : "") +
       ". Payout: " +
       payout +
+      "; Hits: " +
+      hits +
       "<br>";
 
     if (hits >= playerDice) {
@@ -103,8 +111,6 @@ function roll() {
       results +
       "<br>Games Played: " +
       gamesPlayed;
-
-  // Removed minimum wild card requirement check here
 
   document.getElementById("results").innerHTML = results;
 }
