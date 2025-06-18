@@ -5,7 +5,7 @@ function roll() {
   let diceSides = Number(document.getElementById("sides").value);
   let playerChoice = Number(document.getElementById("playerChoice").value);
 
-  let playerDice = wild + 4;
+  let playerDice = level + 4;
   let dealerDice = level + 14;
   let leftoverWild = 0;
 
