@@ -9,11 +9,13 @@ function roll() {
   let dealerDice = level + 14;
   let leftoverWild = 0;
 
-  if (wild > level+4) {
-    leftoverWild = wild-(level+4)
-    wild = level+4
+  // If wildcard is bigger than playerDice, use only playerDice worth
+  if (wild > playerDice) {
+    leftoverWild = wild - playerDice;
+    wild = playerDice;
   }
 
+  // Force people to fill all the cells: if wild < 0 or playerChoice is not valid, abort
   if (
     isNaN(playerChoice) ||
     playerChoice < 1 ||
@@ -25,21 +27,27 @@ function roll() {
     return;
   }
 
-  let payoutPerHit = (wild + 1) * level;
+  let payoutPerHit = (wild + leftoverWild + 1) * level;
   let totalPayout = 0;
   let gamesPlayed = 0;
-  let finalResult = "";
+
+  // Track best result: most hits, then most payout, if tie then latest
+  let bestResult = "";
+  let bestHits = -Infinity;
+  let bestPayout = -Infinity;
+  let bestGameNum = -1;
 
   for (let game = 1; game <= games; game++) {
+    // Always use current payoutPerHit for this game
     let payout = -payoutPerHit;
     let hits = 0;
     let playerArray = generatePArray(playerDice, diceSides, playerChoice);
     let dealerArray = generateDArray(dealerDice, diceSides);
     playerArray = playerArray.sort((a, b) => b - a);
-    payoutPerHit = (wild + leftoverWild + 1) * level
 
     let displayWildCards = playerArray.filter(n => n !== playerChoice);
 
+    // Trim wild cards array to match the used wildcard amount (display only as many as used)
     if (displayWildCards.length > wild) {
       displayWildCards = displayWildCards.slice(0, wild);
     }
@@ -96,7 +104,7 @@ function roll() {
       playerChoice <= diceSides
         ? playerChoice
         : "-";
-    finalResult =
+    let thisResult =
       "Your Number: " +
       playerNumberStr +
       "; Wild Cards: " +
@@ -112,6 +120,18 @@ function roll() {
       hits +
       "<br>";
 
+    // Save best result according to: most hits, then most payout, then latest
+    if (
+      hits > bestHits ||
+      (hits === bestHits && payout > bestPayout) ||
+      (hits === bestHits && payout === bestPayout && game > bestGameNum)
+    ) {
+      bestHits = hits;
+      bestPayout = payout;
+      bestResult = thisResult;
+      bestGameNum = game;
+    }
+
     if (hits >= playerDice) {
       break;
     }
@@ -119,8 +139,8 @@ function roll() {
 
   let results =
     "Total Payout: " + totalPayout + "<br>" +
-    "Final Game result:<br>" +
-    finalResult +
+    "Best Game result:<br>" +
+    bestResult +
     "<br>Games Played: " + gamesPlayed;
 
   document.getElementById("results").innerHTML = results;
