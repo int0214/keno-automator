@@ -30,7 +30,7 @@ function roll() {
     return;
   }
 
-  let payoutPerHit = (wild + leftoverWild + 1) * level * hotSeat; // Multiply each payout by hotSeat
+  let payoutPerHit = Math.pow((wild + leftoverWild + 1) * level, hotSeat);
   let totalPayout = 0;
   let gamesPlayed = 0;
 
