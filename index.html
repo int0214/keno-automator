@@ -6,32 +6,23 @@
     <title>Keno Automator</title>
     <script src="keno.js" defer></script>
   </head>
-  <body bgcolor="#000000">
-    <font color="#ffffff">How many games?</font>
-    <input id="games">
+  <body style="background-color:#000000;">
+    <span style="color:#ffffff;">How many games?</span>
+    <input id="games"><br>
+    <span style="color:#ffffff;">How many wild cards?</span>
+    <input id="wild"><br>
+    <span style="color:#ffffff;">Current game level</span>
+    <input id="level"><br>
+    <span style="color:#ffffff;">Max dice number</span>
+    <input id="sides"><br>
+    <span style="color:#ffffff;">Choose your number</span>
+    <input id="playerChoice"><br>
+    <span style="color:#ffffff;">Hotseat effect</span>
+    <input id="hotSeat"><br>
+    <label style="color:#ffffff;"><input type="checkbox" id="rmult"> Random Mult</label>
+    <label style="color:#ffffff;"><input type="checkbox" id="fmult"> Fixed Mult</label>
     <br>
-    <font color="#ffffff">How many wild cards?</font>
-    <input id="wild">
-    <br>
-    <font color="#ffffff">Current game level</font>
-    <input id="level">
-    <br>
-    <font color="#ffffff">Max dice number</font>
-    <input id="sides">
-    <br>
-    <font color="#ffffff">Choose your number</font>
-    <input id="playerChoice">
-    <br>
-    <font color="#ffffff">Hotseat effect</font>
-    <input id="hotSeat">
-    <br>
-    Random Mult: <input type="checkbox" id="rmult">
-    Fixed Mult: <input type="checkbox" id="fmult">
-    </font>
-    <br>
-    <button onclick="roll()">
-      Play
-    </button>
-    <font color="#ffffff"><div id="results"></div></font>
+    <button onclick="roll()">Play</button>
+    <div id="results" style="color:#ffffff;"></div>
   </body>
 </html>
