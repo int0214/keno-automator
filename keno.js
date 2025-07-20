@@ -4,6 +4,9 @@ function roll() {
   let level = Number(document.getElementById("level").value);
   let diceSides = Number(document.getElementById("sides").value);
   let playerChoice = Number(document.getElementById("playerChoice").value);
+  let hotSeat = Number(document.getElementById("hotSeat").value); // New input
+
+  if (isNaN(hotSeat) || hotSeat <= 0) hotSeat = 1; // Default multiplier to 1 if not valid
 
   let playerDice = level + 4;
   let dealerDice = level + 14;
@@ -27,7 +30,7 @@ function roll() {
     return;
   }
 
-  let payoutPerHit = (wild + leftoverWild + 1) * level;
+  let payoutPerHit = (wild + leftoverWild + 1) * level * hotSeat; // Multiply each payout by hotSeat
   let totalPayout = 0;
   let gamesPlayed = 0;
 
@@ -58,7 +61,7 @@ function roll() {
         if (playerArray.includes(i)) {
           if (!playerhits.includes(i)) {
             playerhits.push(i);
-            payout += payoutPerHit;
+            payout += payoutPerHit; // already multiplied by hotSeat above
           } else {
             payout += payoutPerHit * 3 / 2;
           }
@@ -70,7 +73,7 @@ function roll() {
           dealerArray[0].includes(playerArray[i]) ||
           dealerArray[1].includes(playerArray[i])
         ) {
-          payout += payoutPerHit;
+          payout += payoutPerHit; // already multiplied by hotSeat above
           if (i > 0) {
             if (
               document.getElementById("fmult").checked &&
@@ -145,6 +148,9 @@ function roll() {
 
   document.getElementById("results").innerHTML = results;
 }
+
+// Add this input to your HTML where appropriate:
+// <input type="number" id="hotSeat" placeholder="Hot Seat (multiplier)" value="1">
 
 function generatePArray(diceAmt, sides, playerChoice) {
   let arr = [];
